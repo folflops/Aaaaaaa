@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<title>Sprite Genius Offline</title>
+<style>
+body {
+  background:#0f1220;
+  color:white;
+  font-family:Arial;
+  text-align:center;
+}
+canvas {
+  background:#222;
+  image-rendering: pixelated;
+  border:3px solid #555;
+  margin-top:10px;
+}
+.controls {
+  margin-top:15px;
+}
+input, button {
+  padding:8px;
+  margin:5px;
+}
+</style>
+</head>
+<body>
+
+<h1>🎮 Sprite Genius (Offline)</h1>
+<p>Gere sprites simples e baixe como imagem</p>
+
+<canvas id="canvas" width="256" height="256"></canvas>
+
+<div class="controls">
+  <input type="color" id="color" value="#00ffcc">
+  <button onclick="generate()">Gerar Sprite</button>
+  <button onclick="download()">Baixar PNG</button>
+</div>
+
+<script>
+const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext("2d");
+
+function generate() {
+  ctx.clearRect(0,0,256,256);
+  const color = document.getElementById("color").value;
+
+  for(let y=0;y<16;y++){
+    for(let x=0;x<16;x++){
+      if(Math.random() > 0.45){
+        ctx.fillStyle = color;
+        ctx.fillRect(x*16,y*16,16,16);
+      }
+    }
+  }
+}
+
+function download(){
+  const link = document.createElement("a");
+  link.download = "sprite.png";
+  link.href = canvas.toDataURL();
+  link.click();
+}
+
+generate();
+</script>
+
+</body>
+</html>
